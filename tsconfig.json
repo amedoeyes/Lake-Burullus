@@ -1,11 +1,20 @@
 {
     "compilerOptions": {
-        "experimentalDecorators": true,
-        "module": "AMD",
-        "target": "ES5",
-        "esModuleInterop": true,
-        "sourceMap": true,
-        
+      "module": "amd",
+      "noImplicitAny": true,
+      "sourceMap": true,
+      "jsx": "react",
+      "jsxFactory": "tsx",
+      "target": "es5",
+      "experimentalDecorators": true,
+      "preserveConstEnums": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "esModuleInterop": true,
     },
-    "include": ["app/*"]
-}
+    "include": [
+      "./app/*"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }

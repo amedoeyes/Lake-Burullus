@@ -24,20 +24,22 @@
 			};
 		</script>
 		<script src="https://js.arcgis.com/4.9"></script>
-<script>require(["app/main"]);</script>
+		<script>
+			require(["app/main.js"]);
+		</script>
 	</head>
 	<body>
 		<div id="viewDiv"></div>
 		<div id="mapsMenu">
-			<div id="1"></div>
-			<div id="2"></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
+			<div id="nitrite"><b>Nitrite</b></div>
+			<div id="electric"><b>Electric</b></div>
+			<div id="ammonia"><b>Ammonia</b></div>
+			<div id="salinity"><b>Salinity</b></div>
+			<div id="oxygenDis"><b>Dissolved Oxygen</b></div>
+			<div>
+				<input type="checkbox" id="stations" />
+				<b>Toggle Station Layer</b>
+			</div>
 		</div>
 	</body>
 </html>
