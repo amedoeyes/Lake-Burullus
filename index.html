@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta
+			name="viewport"
+			content="initial-scale=1, maximum-scale=1,user-scalable=no"
+		/>
+		<title>Lake Burullus</title>
+		<link
+			rel="stylesheet"
+			href="https://js.arcgis.com/4.9/esri/themes/dark/main.css"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+		<script>
+			var locationPath = location.pathname.replace(/\/[^\/]+$/, "");
+			window.dojoConfig = {
+				packages: [
+					{
+						name: "app",
+						location: locationPath + "/app",
+					},
+				],
+			};
+		</script>
+		<script src="https://js.arcgis.com/4.9"></script>
+		<script>
+			require(["/app/main.js"]);
+		</script>
+	</head>
+	<body>
+		<div id="viewDiv"></div>
+		<div id="mapsMenu">
+			<div id="1"></div>
+			<div id="2"></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</body>
+</html>
