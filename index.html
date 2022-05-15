@@ -2,10 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta
-			name="viewport"
-			content="initial-scale=1, maximum-scale=1,user-scalable=no"
-		/>
+		<meta name="viewport" content="width=device-width" />
 		<title>Lake Burullus</title>
 		<link
 			rel="stylesheet"
@@ -13,32 +10,78 @@
 		/>
 		<link rel="stylesheet" href="styles.css" />
 		<script>
-			var locationPath = location.pathname.replace(/\/[^\/]+$/, "");
+			var locationPath = location.pathname.replace(/\/[^\/]+$/, '');
 			window.dojoConfig = {
 				packages: [
 					{
-						name: "app",
-						location: locationPath + "/app",
+						name: 'app',
+						location: locationPath + '/app',
 					},
 				],
 			};
 		</script>
 		<script src="https://js.arcgis.com/4.9"></script>
 		<script>
-			require(["app/main.js"]);
+			require(['app/main.js']);
 		</script>
 	</head>
 	<body>
 		<div id="viewDiv"></div>
 		<div id="mapsMenu">
-			<div id="nitrite"><b>Nitrite</b></div>
-			<div id="electric"><b>Electric</b></div>
-			<div id="ammonia"><b>Ammonia</b></div>
-			<div id="salinity"><b>Salinity</b></div>
-			<div id="oxygenDis"><b>Dissolved Oxygen</b></div>
 			<div>
-				<input type="checkbox" id="stations" />
-				<b>Toggle Station Layer</b>
+				<div id="suitable"></div>
+				<b>Suitable</b>
+			</div>
+			<div>
+				<div id="suitableEli"></div>
+				<b>suitableEli</b>
+			</div>
+			<div>
+				<div id="ammonia"></div>
+				<b>Ammonia</b>
+			</div>
+			<div>
+				<div id="electricPOI"></div>
+				<b>Electric</b>
+			</div>
+			<div>
+				<div id="electric"></div>
+				<b>Dissolved Electric</b>
+			</div>
+			<div>
+				<div id="iron"></div>
+				<b>Dissolved Iron</b>
+			</div>
+			<div>
+				<div id="nitrite"></div>
+				<b>Nitrite</b>
+			</div>
+			<div>
+				<div id="oxygen"></div>
+				<b>Dissolved Oxygen</b>
+			</div>
+			<div>
+				<div id="ph"></div>
+				<b>ph</b>
+			</div>
+			<div>
+				<div id="salinity"></div>
+				<b>Salinity</b>
+			</div>
+			<div>
+				<div id="salt"></div>
+				<b>Dissolved Salt</b>
+			</div>
+			<div>
+				<div id="temp"></div>
+				<b>Temperature</b>
+			</div>
+			<div id="checkContainer">
+				<label id="switch">
+					<input type="checkbox" id="stations" />
+					<span id="slider"></span>
+				</label>
+				<b>Station Layer</b>
 			</div>
 		</div>
 	</body>
