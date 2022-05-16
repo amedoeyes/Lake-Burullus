@@ -24,7 +24,7 @@ const map = new Map({
 const view = new MapView({
     container: 'viewDiv',
     map: map,
-    center: [30.78998168378801, 31.5015773514466],
+    center: [30.80998168378801, 31.5015773514466],
     zoom: 11,
     ui: {
         components: ['attribution']
@@ -603,7 +603,7 @@ const scaleBar = new ScaleBar({
     unit: 'metric',
     style: 'ruler'
 });
-view.ui.add(scaleBar, 'bottom-right');
+view.ui.add(scaleBar, 'bottom-left');
 
 //maps menu
 const mapsMenuExpand = new Expand({
@@ -650,7 +650,7 @@ const legendExpand = new Expand({
 if (viewWidth < viewHeight && viewWidth < 512) {
     view.ui.add(legendExpand, 'top-left')
 } else {
-    view.ui.add(legendExpand, 'bottom-left')
+    view.ui.add(legendExpand, 'bottom-right')
 }
 
 //layers

@@ -26,7 +26,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     const view = new MapView_1.default({
         container: 'viewDiv',
         map: map,
-        center: [30.78998168378801, 31.5015773514466],
+        center: [30.80998168378801, 31.5015773514466],
         zoom: 11,
         ui: {
             components: ['attribution']
@@ -565,7 +565,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         unit: 'metric',
         style: 'ruler'
     });
-    view.ui.add(scaleBar, 'bottom-right');
+    view.ui.add(scaleBar, 'bottom-left');
     //maps menu
     const mapsMenuExpand = new Expand_1.default({
         view: view,
@@ -609,7 +609,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         view.ui.add(legendExpand, 'top-left');
     }
     else {
-        view.ui.add(legendExpand, 'bottom-left');
+        view.ui.add(legendExpand, 'bottom-right');
     }
     //layers
     const checkContainer = document.getElementById('checkContainer');
