@@ -1,4 +1,4 @@
-// modules
+// arcgis modules
 import Map from 'esri/Map';
 import MapView from 'esri/views/MapView';
 import FeatureLayer from 'esri/layers/FeatureLayer';
@@ -11,6 +11,7 @@ import SimpleMarkerSymbol from 'esri/symbols/SimpleMarkerSymbol';
 import Expand from 'esri/widgets/Expand';
 import SimpleFillSymbol from 'esri/symbols/SimpleFillSymbol';
 import Point from 'esri/geometry/Point';
+import watchUtils from 'esri/core/watchUtils';
 
 //viewport
 const viewWidth = window.innerWidth
@@ -113,11 +114,12 @@ map.add(centers, 0)
 //lake
 const lakeRenderer = new SimpleRenderer({
     symbol: new SimpleFillSymbol({
-        color: '#9bc4c1',
+        color: '#b0c4d8',
         outline: {
             width: 0
         }
-    })
+    }),
+    label: 'بحيرة البرلس'
 })
 
 const lake = new FeatureLayer({
@@ -126,12 +128,13 @@ const lake = new FeatureLayer({
 })
 map.add(lake, 0)
 
+
 //stations
 const stationsRenderer = new SimpleRenderer({
-    label: 'Station',
+    label: 'المحطات',
     symbol: new SimpleMarkerSymbol({
         size: 10,
-        color: "yellow",
+        color: "#d0ff00",
         outline: null
     })
 })
@@ -158,41 +161,26 @@ const stations = new FeatureLayer({
     ],
     popupTemplate: popupStations,
     renderer: stationsRenderer,
-    visible: false
+    visible: true
 });
 map.add(stations, 2);
 
 //suitable places for fish farming
 const suitableRenderer = new SimpleRenderer({
     symbol: new SimpleFillSymbol({
-        color: 'green',
+        color: '#72c66d',
         outline: {
             width: 0
         }
-    })
+    }),
+    label: 'طبقة توضح الاماكن المناسبة للاستزراع السمكي فى بحيرة البرلس وذلك بأخذ كل العوامل'
 })
 const suitable = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_places_for_fish_farming/FeatureServer/0',
     renderer: suitableRenderer,
-    visible: false
+    visible: true
 })
 map.add(suitable, 1)
-
-//suitable places for fish farming without electric
-const suitableEliRenderer = new SimpleRenderer({
-    symbol: new SimpleFillSymbol({
-        color: 'green',
-        outline: {
-            width: 0
-        }
-    })
-})
-const suitableEli = new FeatureLayer({
-    url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_nitrite_locations/FeatureServer/0',
-    renderer: suitableEliRenderer,
-    visible: false
-})
-map.add(suitableEli, 1)
 
 //ammonia
 const ammoniaRenderer = new SimpleRenderer({
@@ -201,23 +189,24 @@ const ammoniaRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح كمية الأمونيا الذائبة في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'mg/L'
             },
             stops: [
                 {
                     value: 1,
-                    color: '#fffcd4',
+                    color: '#e6faff',
                     label: '0.1'
                 },
                 {
                     value: 9,
-                    color: '#0d2644',
+                    color: '#435c6c',
                     label: '1.3'
                 }
             ]
@@ -229,7 +218,7 @@ const ammonia = new FeatureLayer({
     title: 'Ammonia',
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ammonia_fi_dissolve1/FeatureServer/0',
     renderer: ammoniaRenderer,
-    visible: false
+    visible: true
 })
 map.add(ammonia, 1)
 
@@ -240,6 +229,7 @@ const electricDisRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح نسبة التوصيل الكهربائي في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
@@ -251,13 +241,13 @@ const electricDisRenderer = new SimpleRenderer({
             stops: [
                 {
                     value: 1,
-                    color: '#41495f',
-                    label: '0.1'
+                    color: '#e6e1ff',
+                    label: '5.71'
                 },
                 {
                     value: 12,
-                    color: '#b6d1fd',
-                    label: '1.3'
+                    color: '#5a4a78',
+                    label: '5181'
                 }
             ]
         }
@@ -267,7 +257,7 @@ const electricDisRenderer = new SimpleRenderer({
 const electric = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_electric_fi_dissolve1/FeatureServer/0',
     renderer: electricDisRenderer,
-    visible: false
+    visible: true
 })
 map.add(electric, 1)
 
@@ -275,20 +265,37 @@ map.add(electric, 1)
 const electricPOIRenderer = new UniqueValueRenderer({
     field: 'gridcode',
     legendOptions: {
-        title: ' '
+        title: 'طبقة توضح المناطق الملائمة والغير ملائمة للتوصيل الكهربائي في بحيرة البرلس'
     },
     uniqueValueInfos: [
-        uniqueValues('1', '#4d7799', 'Sutible'),
-        uniqueValues('0', '#b5515b', 'Unsutible'),
+        uniqueValues('1', '#6690ff', 'ملائم'),
+        uniqueValues('0', '#ff9573', 'غير ملائم'),
     ]
 })
 
 const electricPOI = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/electric_pol_fi/FeatureServer/0',
     renderer: electricPOIRenderer,
-    visible: false
+    visible: true
 })
 map.add(electricPOI, 1)
+
+//suitable places for electric
+const suitableEliRenderer = new SimpleRenderer({
+    symbol: new SimpleFillSymbol({
+        color: '#8b87e4',
+        outline: {
+            width: 0
+        }
+    }),
+    label: 'طبقة توضح المناطق المناسبة للتوصيل الكهربائي'
+})
+const suitableEli = new FeatureLayer({
+    url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_nitrite_locations/FeatureServer/0',
+    renderer: suitableEliRenderer,
+    visible: true
+})
+map.add(suitableEli, 1)
 
 //iron dissolve
 const ironRenderer = new SimpleRenderer({
@@ -297,24 +304,25 @@ const ironRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح كمية الحديد الذائب في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'mg/L'
             },
             stops: [
                 {
                     value: 1,
-                    color: 'red',
-                    label: '4.31'
+                    color: '#fff5e6',
+                    label: '0.01'
                 },
                 {
                     value: 9,
-                    color: 'blue',
-                    label: '9.4'
+                    color: '#594439',
+                    label: '0.91'
                 }
             ]
         }
@@ -324,7 +332,7 @@ const ironRenderer = new SimpleRenderer({
 const iron = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_iron_fi_dissolve1/FeatureServer/0',
     renderer: ironRenderer,
-    visible: false
+    visible: true
 })
 map.add(iron, 1)
 
@@ -335,24 +343,25 @@ const nitriteRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح كمية النيتريت الذائب في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'mg/L'
             },
             stops: [
                 {
                     value: 1,
-                    color: '#fffcd4',
-                    label: '0.1'
+                    color: '#ccafaf',
+                    label: '0'
                 },
                 {
                     value: 9,
-                    color: '#0d2644',
-                    label: '1.3'
+                    color: '#ff1947',
+                    label: '0.5'
                 }
             ]
         }
@@ -360,37 +369,56 @@ const nitriteRenderer = new SimpleRenderer({
 })
 
 const nitrite = new FeatureLayer({
-    title: 'Nitrite',
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
     renderer: nitriteRenderer,
-    visible: false
+    visible: true
 })
 map.add(nitrite, 1)
+
+//nitritePOI
+const nitritePOIRenderer = new UniqueValueRenderer({
+    field: 'gridcode',
+    legendOptions: {
+        title: 'طبقة توضح المناطق الملائمة والغير ملائمة للنتريت في بحيرة البرلس'
+    },
+    uniqueValueInfos: [
+        uniqueValues('1', '#6690ff', 'ملائم'),
+        uniqueValues('0', '#ff9573', 'غير ملائم'),
+    ]
+})
+
+const nitritePOI = new FeatureLayer({
+    url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/nitrite_pol_fi/FeatureServer/0',
+    renderer: nitritePOIRenderer,
+    visible: true
+})
+map.add(nitritePOI, 1)
 
 //dissolved oxygen
 const oxygenRenderer = new SimpleRenderer({
     symbol: new SimpleFillSymbol({
         outline: {
             width: 0
-        }
+        },
     }),
+    label: 'طبقة توضح كمية الاكسجين الذائب في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'mg/L'
             },
             stops: [
                 {
                     value: 1,
-                    color: '#4d91ff',
+                    color: '#00b7ff',
                     label: '4.31'
                 },
                 {
                     value: 9,
-                    color: '#282864',
+                    color: '#0062a8',
                     label: '9.4'
                 }
             ]
@@ -401,9 +429,10 @@ const oxygenRenderer = new SimpleRenderer({
 const oxygen = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_dissolved_oxygen_fi_1/FeatureServer/0',
     renderer: oxygenRenderer,
-    visible: false
+    visible: true
 })
 map.add(oxygen, 1)
+
 //ph
 const phRenderer = new SimpleRenderer({
     symbol: new SimpleFillSymbol({
@@ -411,24 +440,25 @@ const phRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح كمية الأس الهيدوجيني الذائب في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'mg/L'
             },
             stops: [
                 {
                     value: 1,
-                    color: 'red',
-                    label: '4.31'
+                    color: '#e566ff',
+                    label: '7.8'
                 },
                 {
                     value: 9,
-                    color: 'blue',
-                    label: '9.4'
+                    color: '#690cc2',
+                    label: '9.1'
                 }
             ]
         }
@@ -438,7 +468,7 @@ const phRenderer = new SimpleRenderer({
 const ph = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
     renderer: phRenderer,
-    visible: false
+    visible: true
 })
 map.add(ph, 1)
 
@@ -449,6 +479,7 @@ const salinityRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقه توضح نسبة الملوحة في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
@@ -460,12 +491,12 @@ const salinityRenderer = new SimpleRenderer({
             stops: [
                 {
                     value: 1,
-                    color: '#faefdb',
+                    color: '#0080ff',
                     label: '0.4'
                 },
                 {
                     value: 9,
-                    color: '#325361',
+                    color: '#ff4d4d',
                     label: '30.7'
                 }
             ]
@@ -476,7 +507,7 @@ const salinityRenderer = new SimpleRenderer({
 const salinity = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_salinity_fi_dissolve1/FeatureServer/0',
     renderer: salinityRenderer,
-    visible: false
+    visible: true
 })
 map.add(salinity, 1)
 
@@ -487,24 +518,25 @@ const saltRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح كمية الاملاح الكليه الذائبه في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'mg/L'
             },
             stops: [
                 {
                     value: 1,
                     color: '#faefdb',
-                    label: '0.4'
+                    label: '8.13'
                 },
                 {
                     value: 9,
                     color: '#325361',
-                    label: '30.7'
+                    label: '5471'
                 }
             ]
         }
@@ -514,7 +546,7 @@ const saltRenderer = new SimpleRenderer({
 const salt = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_total_dissolved_salt1/FeatureServer/0',
     renderer: saltRenderer,
-    visible: false
+    visible: true
 })
 map.add(salt, 1)
 
@@ -525,24 +557,25 @@ const tempRenderer = new SimpleRenderer({
             width: 0
         }
     }),
+    label: 'طبقة توضح درجة الحرارة في بحيرة البرلس',
     visualVariables: [
         {
             // @ts-ignore
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: ' '
+                title: 'C'
             },
             stops: [
                 {
                     value: 1,
-                    color: '#faefdb',
-                    label: '0.4'
+                    color: '#ffa200',
+                    label: '22.3'
                 },
                 {
                     value: 9,
-                    color: '#325361',
-                    label: '30.7'
+                    color: '#ff4a0d',
+                    label: '22.88'
                 }
             ]
         }
@@ -552,7 +585,7 @@ const tempRenderer = new SimpleRenderer({
 const temp = new FeatureLayer({
     url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_temperaature_dissolv1/FeatureServer/0',
     renderer: tempRenderer,
-    visible: false
+    visible: true
 })
 map.add(temp, 1)
 
@@ -573,12 +606,13 @@ const scaleBar = new ScaleBar({
 view.ui.add(scaleBar, 'bottom-right');
 
 //maps menu
-const expandMapsMenu = new Expand({
+const mapsMenuExpand = new Expand({
     view: view,
     content: document.getElementById('mapsMenu'),
+    expanded: true,
 })
 
-view.ui.add(expandMapsMenu, 'top-left')
+view.ui.add(mapsMenuExpand, 'top-left')
 
 //legend
 function layerInfo(layer: any, title: string) {
@@ -591,18 +625,20 @@ const legend = new Legend({
     view: view,
     layerInfos: [
         layerInfo(stations, ''),
-        layerInfo(suitable, ''),
-        layerInfo(suitableEli, ''),
-        layerInfo(ammonia, 'Ammonia'),
-        layerInfo(electric, 'Electric Dissolve'),
-        layerInfo(electricPOI, 'Electric'),
-        layerInfo(iron, 'Iron Dissolve'),
-        layerInfo(oxygen, 'Dissolved Oxygen'),
-        layerInfo(nitrite, 'Nitrite'),
-        layerInfo(ph, 'ph'),
-        layerInfo(salinity, 'Salinity'),
-        layerInfo(salt, 'Dissolved Salt'),
-        layerInfo(temp, 'Temperature'),
+        layerInfo(lake, ''),
+        layerInfo(suitable, 'أفضل اماكن للأستزراع السمكي'),
+        layerInfo(ammonia, 'كمية الأمونية الذائبة'),
+        layerInfo(electric, 'نسبة التوصيل الكهربائي'),
+        layerInfo(electricPOI, 'المناطق الملائمة والغير ملائمة للتوصيل الكهربائي'),
+        layerInfo(suitableEli, 'أفضل اماكن للتوصيل الكهربائي'),
+        layerInfo(iron, 'كمية الحديد الذائب'),
+        layerInfo(nitrite, 'كمية النيتريت الذائب'),
+        layerInfo(nitritePOI, 'المناطق الملائمة والغير ملائمة للنتريت'),
+        layerInfo(oxygen, 'كمية الأوكسيجين الذائب'),
+        layerInfo(ph, 'كمية الأس الهيدوجيني'),
+        layerInfo(salinity, 'نسبة الملوحة'),
+        layerInfo(salt, 'كمية الاملاح الكليه الذائبة'),
+        layerInfo(temp, 'درجة الحرارة'),
     ]
 })
 const legendExpand = new Expand({
@@ -633,19 +669,36 @@ checkContainer.onclick = function () {
 
 function disableLayers() {
     return suitable.visible = false,
-        suitableEli.visible = false,
         ammonia.visible = false,
         electric.visible = false,
         electricPOI.visible = false,
+        suitableEli.visible = false,
         iron.visible = false,
         lake.visible = false,
         nitrite.visible = false,
+        nitritePOI.visible = false,
         oxygen.visible = false,
         ph.visible = false,
         salinity.visible = false,
         salt.visible = false,
         temp.visible = false
 }
+
+view.when(() => {
+    setTimeout(() => {
+        disableLayers()
+        lake.visible = true
+        stations.visible = false
+        setTimeout(() => {
+            document.getElementById('loading').style.opacity = '0'
+            setTimeout(() => {
+                document.getElementById('loading').remove()
+            }, 150);
+        }, 500);
+    }, 2000);
+})
+
+
 
 document.getElementById('suitable').onclick = function () {
     if (!suitable.visible) {
@@ -698,6 +751,13 @@ document.getElementById('nitrite').onclick = function () {
     }
 }
 
+document.getElementById('nitritePOI').onclick = function () {
+    if (!nitritePOI.visible) {
+        disableLayers()
+        nitritePOI.visible = true
+    }
+}
+
 document.getElementById('oxygen').onclick = function () {
     if (!oxygen.visible) {
         disableLayers()
@@ -741,4 +801,5 @@ if (viewWidth < viewHeight && viewWidth < 512) {
         'latitude': 31.3974791,
     });
     legendExpand.expanded = false
+    mapsMenuExpand.expanded = false
 }

@@ -17,13 +17,13 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     SimpleFillSymbol_1 = __importDefault(SimpleFillSymbol_1);
     Point_1 = __importDefault(Point_1);
     //viewport
-    var viewWidth = window.innerWidth;
-    var viewHeight = window.innerHeight;
+    const viewWidth = window.innerWidth;
+    const viewHeight = window.innerHeight;
     //basemap and map config
-    var map = new Map_1.default({
+    const map = new Map_1.default({
         basemap: 'dark-gray',
     });
-    var view = new MapView_1.default({
+    const view = new MapView_1.default({
         container: 'viewDiv',
         map: map,
         center: [30.6845758, 31.4974791],
@@ -44,13 +44,13 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         },
     });
     //limit zoom and movement
-    setInterval(function () {
-        var maxZoom = 1000000;
-        var minZoom = 50000;
-        var maxLong = 31.276932195608637;
-        var minLong = 30.38183587513739;
-        var maxLat = 31.708265368498985;
-        var minLat = 31.22458651642475;
+    setInterval(() => {
+        const maxZoom = 1000000;
+        const minZoom = 50000;
+        const maxLong = 31.276932195608637;
+        const minLong = 30.38183587513739;
+        const maxLat = 31.708265368498985;
+        const minLat = 31.22458651642475;
         if (view.scale > maxZoom || view.scale < minZoom) {
             if (viewWidth > viewHeight && viewWidth > 512) {
                 view.goTo({
@@ -94,7 +94,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         };
     }
     //centers
-    var centersRenderer = new SimpleRenderer_1.default({
+    const centersRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             color: '#474749',
             outline: {
@@ -102,39 +102,40 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             }
         })
     });
-    var centers = new FeatureLayer_1.default({
+    const centers = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/burullus_centers/FeatureServer/0',
         renderer: centersRenderer
     });
     map.add(centers, 0);
     //lake
-    var lakeRenderer = new SimpleRenderer_1.default({
+    const lakeRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
-            color: '#9bc4c1',
+            color: '#b0c4d8',
             outline: {
                 width: 0
             }
-        })
+        }),
+        label: 'بحيرة البرلس'
     });
-    var lake = new FeatureLayer_1.default({
+    const lake = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/el_brolod/FeatureServer/0',
         renderer: lakeRenderer
     });
     map.add(lake, 0);
     //stations
-    var stationsRenderer = new SimpleRenderer_1.default({
-        label: 'Station',
+    const stationsRenderer = new SimpleRenderer_1.default({
+        label: 'المحطات',
         symbol: new SimpleMarkerSymbol_1.default({
             size: 10,
-            color: "yellow",
+            color: "#d0ff00",
             outline: null
         })
     });
-    var popupStations = {
+    const popupStations = {
         title: 'Station',
         content: '<b>Station:</b> {Station_Name} <br> <b>Salinity:</b> {salinity} <br> <b>Hydrogen ion:</b> {hydrogen_ion_concentration} <br> <b>Dissolved Oxygen:</b> {dissolved_oxygen} <br> <b>Ammonia:</b> {ammonia} <br> <b>Nitrite:</b> {Nitrite_values} <br> <b>Fe:</b> {Fe} <br> <b>Electric:</b> {Electric} <br> <b>Dissolved Salt:</b> {Total_dissolved_Salts}',
     };
-    var stations = new FeatureLayer_1.default({
+    const stations = new FeatureLayer_1.default({
         title: 'Stations',
         url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/stations/FeatureServer/0',
         outFields: [
@@ -150,83 +151,71 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ],
         popupTemplate: popupStations,
         renderer: stationsRenderer,
-        visible: false
+        visible: true
     });
     map.add(stations, 2);
     //suitable places for fish farming
-    var suitableRenderer = new SimpleRenderer_1.default({
+    const suitableRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
-            color: 'green',
+            color: '#72c66d',
             outline: {
                 width: 0
             }
-        })
+        }),
+        label: 'طبقة توضح الاماكن المناسبة للاستزراع السمكي فى بحيرة البرلس وذلك بأخذ كل العوامل'
     });
-    var suitable = new FeatureLayer_1.default({
+    const suitable = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_places_for_fish_farming/FeatureServer/0',
         renderer: suitableRenderer,
-        visible: false
+        visible: true
     });
     map.add(suitable, 1);
-    //suitable places for fish farming without electric
-    var suitableEliRenderer = new SimpleRenderer_1.default({
-        symbol: new SimpleFillSymbol_1.default({
-            color: 'green',
-            outline: {
-                width: 0
-            }
-        })
-    });
-    var suitableEli = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_nitrite_locations/FeatureServer/0',
-        renderer: suitableEliRenderer,
-        visible: false
-    });
-    map.add(suitableEli, 1);
     //ammonia
-    var ammoniaRenderer = new SimpleRenderer_1.default({
+    const ammoniaRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح كمية الأمونيا الذائبة في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'mg/L'
                 },
                 stops: [
                     {
                         value: 1,
-                        color: '#fffcd4',
+                        color: '#e6faff',
                         label: '0.1'
                     },
                     {
                         value: 9,
-                        color: '#0d2644',
+                        color: '#435c6c',
                         label: '1.3'
                     }
                 ]
             }
         ]
     });
-    var ammonia = new FeatureLayer_1.default({
+    const ammonia = new FeatureLayer_1.default({
         title: 'Ammonia',
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ammonia_fi_dissolve1/FeatureServer/0',
         renderer: ammoniaRenderer,
-        visible: false
+        visible: true
     });
     map.add(ammonia, 1);
     //dessolved electric
-    var electricDisRenderer = new SimpleRenderer_1.default({
+    const electricDisRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح نسبة التوصيل الكهربائي في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
@@ -238,193 +227,230 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                 stops: [
                     {
                         value: 1,
-                        color: '#41495f',
-                        label: '0.1'
+                        color: '#e6e1ff',
+                        label: '5.71'
                     },
                     {
                         value: 12,
-                        color: '#b6d1fd',
-                        label: '1.3'
+                        color: '#5a4a78',
+                        label: '5181'
                     }
                 ]
             }
         ]
     });
-    var electric = new FeatureLayer_1.default({
+    const electric = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_electric_fi_dissolve1/FeatureServer/0',
         renderer: electricDisRenderer,
-        visible: false
+        visible: true
     });
     map.add(electric, 1);
     //electricPOI
-    var electricPOIRenderer = new UniqueValueRenderer_1.default({
+    const electricPOIRenderer = new UniqueValueRenderer_1.default({
         field: 'gridcode',
         legendOptions: {
-            title: ' '
+            title: 'طبقة توضح المناطق الملائمة والغير ملائمة للتوصيل الكهربائي في بحيرة البرلس'
         },
         uniqueValueInfos: [
-            uniqueValues('1', '#4d7799', 'Sutible'),
-            uniqueValues('0', '#b5515b', 'Unsutible'),
+            uniqueValues('1', '#6690ff', 'ملائم'),
+            uniqueValues('0', '#ff9573', 'غير ملائم'),
         ]
     });
-    var electricPOI = new FeatureLayer_1.default({
+    const electricPOI = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/electric_pol_fi/FeatureServer/0',
         renderer: electricPOIRenderer,
-        visible: false
+        visible: true
     });
     map.add(electricPOI, 1);
+    //suitable places for electric
+    const suitableEliRenderer = new SimpleRenderer_1.default({
+        symbol: new SimpleFillSymbol_1.default({
+            color: '#8b87e4',
+            outline: {
+                width: 0
+            }
+        }),
+        label: 'طبقة توضح المناطق المناسبة للتوصيل الكهربائي'
+    });
+    const suitableEli = new FeatureLayer_1.default({
+        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_nitrite_locations/FeatureServer/0',
+        renderer: suitableEliRenderer,
+        visible: true
+    });
+    map.add(suitableEli, 1);
     //iron dissolve
-    var ironRenderer = new SimpleRenderer_1.default({
+    const ironRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح كمية الحديد الذائب في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'mg/L'
                 },
                 stops: [
                     {
                         value: 1,
-                        color: 'red',
-                        label: '4.31'
+                        color: '#fff5e6',
+                        label: '0.01'
                     },
                     {
                         value: 9,
-                        color: 'blue',
-                        label: '9.4'
+                        color: '#594439',
+                        label: '0.91'
                     }
                 ]
             }
         ]
     });
-    var iron = new FeatureLayer_1.default({
+    const iron = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_iron_fi_dissolve1/FeatureServer/0',
         renderer: ironRenderer,
-        visible: false
+        visible: true
     });
     map.add(iron, 1);
     //nitrite
-    var nitriteRenderer = new SimpleRenderer_1.default({
+    const nitriteRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح كمية النيتريت الذائب في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'mg/L'
                 },
                 stops: [
                     {
                         value: 1,
-                        color: '#fffcd4',
-                        label: '0.1'
+                        color: '#ccafaf',
+                        label: '0'
                     },
                     {
                         value: 9,
-                        color: '#0d2644',
-                        label: '1.3'
+                        color: '#ff1947',
+                        label: '0.5'
                     }
                 ]
             }
         ]
     });
-    var nitrite = new FeatureLayer_1.default({
-        title: 'Nitrite',
+    const nitrite = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
         renderer: nitriteRenderer,
-        visible: false
+        visible: true
     });
     map.add(nitrite, 1);
+    //nitritePOI
+    const nitritePOIRenderer = new UniqueValueRenderer_1.default({
+        field: 'gridcode',
+        legendOptions: {
+            title: 'طبقة توضح المناطق الملائمة والغير ملائمة للنتريت في بحيرة البرلس'
+        },
+        uniqueValueInfos: [
+            uniqueValues('1', '#6690ff', 'ملائم'),
+            uniqueValues('0', '#ff9573', 'غير ملائم'),
+        ]
+    });
+    const nitritePOI = new FeatureLayer_1.default({
+        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/nitrite_pol_fi/FeatureServer/0',
+        renderer: nitritePOIRenderer,
+        visible: true
+    });
+    map.add(nitritePOI, 1);
     //dissolved oxygen
-    var oxygenRenderer = new SimpleRenderer_1.default({
+    const oxygenRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
-            }
+            },
         }),
+        label: 'طبقة توضح كمية الاكسجين الذائب في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'mg/L'
                 },
                 stops: [
                     {
                         value: 1,
-                        color: '#4d91ff',
+                        color: '#00b7ff',
                         label: '4.31'
                     },
                     {
                         value: 9,
-                        color: '#282864',
+                        color: '#0062a8',
                         label: '9.4'
                     }
                 ]
             }
         ]
     });
-    var oxygen = new FeatureLayer_1.default({
+    const oxygen = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_dissolved_oxygen_fi_1/FeatureServer/0',
         renderer: oxygenRenderer,
-        visible: false
+        visible: true
     });
     map.add(oxygen, 1);
     //ph
-    var phRenderer = new SimpleRenderer_1.default({
+    const phRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح كمية الأس الهيدوجيني الذائب في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'mg/L'
                 },
                 stops: [
                     {
                         value: 1,
-                        color: 'red',
-                        label: '4.31'
+                        color: '#e566ff',
+                        label: '7.8'
                     },
                     {
                         value: 9,
-                        color: 'blue',
-                        label: '9.4'
+                        color: '#690cc2',
+                        label: '9.1'
                     }
                 ]
             }
         ]
     });
-    var ph = new FeatureLayer_1.default({
+    const ph = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
         renderer: phRenderer,
-        visible: false
+        visible: true
     });
     map.add(ph, 1);
     //salinity
-    var salinityRenderer = new SimpleRenderer_1.default({
+    const salinityRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقه توضح نسبة الملوحة في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
@@ -436,115 +462,118 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                 stops: [
                     {
                         value: 1,
-                        color: '#faefdb',
+                        color: '#0080ff',
                         label: '0.4'
                     },
                     {
                         value: 9,
-                        color: '#325361',
+                        color: '#ff4d4d',
                         label: '30.7'
                     }
                 ]
             }
         ]
     });
-    var salinity = new FeatureLayer_1.default({
+    const salinity = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_salinity_fi_dissolve1/FeatureServer/0',
         renderer: salinityRenderer,
-        visible: false
+        visible: true
     });
     map.add(salinity, 1);
     //dissolved salt
-    var saltRenderer = new SimpleRenderer_1.default({
+    const saltRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح كمية الاملاح الكليه الذائبه في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'mg/L'
                 },
                 stops: [
                     {
                         value: 1,
                         color: '#faefdb',
-                        label: '0.4'
+                        label: '8.13'
                     },
                     {
                         value: 9,
                         color: '#325361',
-                        label: '30.7'
+                        label: '5471'
                     }
                 ]
             }
         ]
     });
-    var salt = new FeatureLayer_1.default({
+    const salt = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_total_dissolved_salt1/FeatureServer/0',
         renderer: saltRenderer,
-        visible: false
+        visible: true
     });
     map.add(salt, 1);
     //temp
-    var tempRenderer = new SimpleRenderer_1.default({
+    const tempRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
             outline: {
                 width: 0
             }
         }),
+        label: 'طبقة توضح درجة الحرارة في بحيرة البرلس',
         visualVariables: [
             {
                 // @ts-ignore
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: ' '
+                    title: 'C'
                 },
                 stops: [
                     {
                         value: 1,
-                        color: '#faefdb',
-                        label: '0.4'
+                        color: '#ffa200',
+                        label: '22.3'
                     },
                     {
                         value: 9,
-                        color: '#325361',
-                        label: '30.7'
+                        color: '#ff4a0d',
+                        label: '22.88'
                     }
                 ]
             }
         ]
     });
-    var temp = new FeatureLayer_1.default({
+    const temp = new FeatureLayer_1.default({
         url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_temperaature_dissolv1/FeatureServer/0',
         renderer: tempRenderer,
-        visible: false
+        visible: true
     });
     map.add(temp, 1);
     //map components
     //north arrow
-    var compass = new Compass_1.default({
+    const compass = new Compass_1.default({
         view: view
     });
     view.ui.add(compass, 'top-right');
     //scalebar
-    var scaleBar = new ScaleBar_1.default({
+    const scaleBar = new ScaleBar_1.default({
         view: view,
         unit: 'metric',
         style: 'ruler'
     });
     view.ui.add(scaleBar, 'bottom-right');
     //maps menu
-    var expandMapsMenu = new Expand_1.default({
+    const mapsMenuExpand = new Expand_1.default({
         view: view,
         content: document.getElementById('mapsMenu'),
+        expanded: true,
     });
-    view.ui.add(expandMapsMenu, 'top-left');
+    view.ui.add(mapsMenuExpand, 'top-left');
     //legend
     function layerInfo(layer, title) {
         return {
@@ -552,25 +581,27 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             'title': title
         };
     }
-    var legend = new Legend_1.default({
+    const legend = new Legend_1.default({
         view: view,
         layerInfos: [
             layerInfo(stations, ''),
-            layerInfo(suitable, ''),
-            layerInfo(suitableEli, ''),
-            layerInfo(ammonia, 'Ammonia'),
-            layerInfo(electric, 'Electric Dissolve'),
-            layerInfo(electricPOI, 'Electric'),
-            layerInfo(iron, 'Iron Dissolve'),
-            layerInfo(oxygen, 'Dissolved Oxygen'),
-            layerInfo(nitrite, 'Nitrite'),
-            layerInfo(ph, 'ph'),
-            layerInfo(salinity, 'Salinity'),
-            layerInfo(salt, 'Dissolved Salt'),
-            layerInfo(temp, 'Temperature'),
+            layerInfo(lake, ''),
+            layerInfo(suitable, 'أفضل اماكن للأستزراع السمكي'),
+            layerInfo(ammonia, 'كمية الأمونية الذائبة'),
+            layerInfo(electric, 'نسبة التوصيل الكهربائي'),
+            layerInfo(electricPOI, 'المناطق الملائمة والغير ملائمة للتوصيل الكهربائي'),
+            layerInfo(suitableEli, 'أفضل اماكن للتوصيل الكهربائي'),
+            layerInfo(iron, 'كمية الحديد الذائب'),
+            layerInfo(nitrite, 'كمية النيتريت الذائب'),
+            layerInfo(nitritePOI, 'المناطق الملائمة والغير ملائمة للنتريت'),
+            layerInfo(oxygen, 'كمية الأوكسيجين الذائب'),
+            layerInfo(ph, 'كمية الأس الهيدوجيني'),
+            layerInfo(salinity, 'نسبة الملوحة'),
+            layerInfo(salt, 'كمية الاملاح الكليه الذائبة'),
+            layerInfo(temp, 'درجة الحرارة'),
         ]
     });
-    var legendExpand = new Expand_1.default({
+    const legendExpand = new Expand_1.default({
         view: view,
         content: legend,
         expanded: true
@@ -582,8 +613,8 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         view.ui.add(legendExpand, 'bottom-left');
     }
     //layers
-    var checkContainer = document.getElementById('checkContainer');
-    var stationCheck = document.getElementById('stations');
+    const checkContainer = document.getElementById('checkContainer');
+    const stationCheck = document.getElementById('stations');
     stationCheck.checked = false;
     checkContainer.onclick = function () {
         if (stationCheck.checked) {
@@ -597,19 +628,33 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     };
     function disableLayers() {
         return suitable.visible = false,
-            suitableEli.visible = false,
             ammonia.visible = false,
             electric.visible = false,
             electricPOI.visible = false,
+            suitableEli.visible = false,
             iron.visible = false,
             lake.visible = false,
             nitrite.visible = false,
+            nitritePOI.visible = false,
             oxygen.visible = false,
             ph.visible = false,
             salinity.visible = false,
             salt.visible = false,
             temp.visible = false;
     }
+    view.when(() => {
+        setTimeout(() => {
+            disableLayers();
+            lake.visible = true;
+            stations.visible = false;
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').remove();
+                }, 150);
+            }, 500);
+        }, 2000);
+    });
     document.getElementById('suitable').onclick = function () {
         if (!suitable.visible) {
             disableLayers();
@@ -654,6 +699,12 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             nitrite.visible = true;
         }
     };
+    document.getElementById('nitritePOI').onclick = function () {
+        if (!nitritePOI.visible) {
+            disableLayers();
+            nitritePOI.visible = true;
+        }
+    };
     document.getElementById('oxygen').onclick = function () {
         if (!oxygen.visible) {
             disableLayers();
@@ -692,6 +743,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             'latitude': 31.3974791,
         });
         legendExpand.expanded = false;
+        mapsMenuExpand.expanded = false;
     }
 });
 //# sourceMappingURL=main.js.map
