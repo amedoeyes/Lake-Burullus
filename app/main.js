@@ -26,7 +26,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     const view = new MapView_1.default({
         container: 'viewDiv',
         map: map,
-        center: [30.6845758, 31.4974791],
+        center: [30.80998168378801, 31.5015773514466],
         zoom: 11,
         ui: {
             components: ['attribution']
@@ -50,29 +50,28 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         const maxLong = 31.276932195608637;
         const minLong = 30.38183587513739;
         const maxLat = 31.708265368498985;
-        const minLat = 31.22458651642475;
+        const minLat = 31.32458651642475;
         if (view.scale > maxZoom || view.scale < minZoom) {
             if (viewWidth > viewHeight && viewWidth > 512) {
-                view.goTo({
-                    zoom: 11,
-                });
+                view.goTo({});
             }
             else {
+                view.goTo({});
+            }
+        }
+        if (view.scale > maxZoom || view.scale < minZoom
+            || view.center.longitude < minLong || view.center.longitude > maxLong
+            || view.center.latitude < minLat || view.center.latitude > maxLat) {
+            if (viewWidth < viewHeight && viewWidth < 512) {
                 view.goTo({
+                    center: [30.796336053905733, 31.460756827405653],
                     zoom: 9,
                 });
             }
-        }
-        if (view.center.longitude < minLong || view.center.longitude > maxLong
-            || view.center.latitude < minLat || view.center.latitude > maxLat) {
-            if (viewWidth > viewHeight && viewWidth > 512) {
-                view.goTo({
-                    center: [30.6845758, 31.4974791],
-                });
-            }
             else {
                 view.goTo({
-                    center: [30.8045758, 31.3974791],
+                    center: [30.80998168378801, 31.5015773514466],
+                    zoom: 11,
                 });
             }
         }
@@ -739,8 +738,8 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     if (viewWidth < viewHeight && viewWidth < 512) {
         view.zoom = 9;
         view.center = new Point_1.default({
-            'longitude': 30.8045758,
-            'latitude': 31.3974791,
+            'longitude': 30.796336053905733,
+            'latitude': 31.460756827405653,
         });
         legendExpand.expanded = false;
         mapsMenuExpand.expanded = false;
