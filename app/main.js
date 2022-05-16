@@ -26,7 +26,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     const view = new MapView_1.default({
         container: 'viewDiv',
         map: map,
-        center: [30.80998168378801, 31.5015773514466],
+        center: [30.78998168378801, 31.5015773514466],
         zoom: 11,
         ui: {
             components: ['attribution']
@@ -70,7 +70,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             }
             else {
                 view.goTo({
-                    center: [30.80998168378801, 31.5015773514466],
+                    center: [30.78998168378801, 31.5015773514466],
                     zoom: 11,
                 });
             }

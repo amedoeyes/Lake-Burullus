@@ -24,7 +24,7 @@ const map = new Map({
 const view = new MapView({
     container: 'viewDiv',
     map: map,
-    center: [30.80998168378801, 31.5015773514466],
+    center: [30.78998168378801, 31.5015773514466],
     zoom: 11,
     ui: {
         components: ['attribution']
@@ -70,7 +70,7 @@ setInterval(() => {
             })
         } else {
             view.goTo({
-                center: [30.80998168378801, 31.5015773514466],
+                center: [30.78998168378801, 31.5015773514466],
                 zoom: 11,
             })
         }
