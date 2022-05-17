@@ -239,6 +239,10 @@ input:checked + #slider:before {
 	text-align: end
 } 
 
+.esri-popup__header-buttons {
+	position: absolute;
+}
+
 @media only screen and (max-width: 512px) {
 	#mapsMenu {
 		max-height: 100%;
