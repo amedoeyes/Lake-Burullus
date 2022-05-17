@@ -38,7 +38,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             dockEnabled: true,
             dockOptions: {
                 buttonEnabled: false,
-                position: 'bottom-right',
+                position: 'bottom-left',
                 breakpoint: false,
             },
         },
