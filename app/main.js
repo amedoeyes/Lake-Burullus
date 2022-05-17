@@ -132,13 +132,12 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     });
     const popupStations = {
         title: 'المحطة',
-        content: '<b>Station:</b> {Station_Name} <br> <b>Salinity:</b> {salinity} <br> <b>Hydrogen ion:</b> {hydrogen_ion_concentration} <br> <b>Dissolved Oxygen:</b> {dissolved_oxygen} <br> <b>Ammonia:</b> {ammonia} <br> <b>Nitrite:</b> {Nitrite_values} <br> <b>Fe:</b> {Fe} <br> <b>Electric:</b> {Electric} <br> <b>Dissolved Salt:</b> {Total_dissolved_Salts}',
+        content: '<b>الملوحة:</b> {salinity} <br> <b>الأس الهيدروجيني:</b> {hydrogen_ion_concentration} <br> <b>الأوكسيجين الذائب:</b> {dissolved_oxygen} <br> <b>الأمونية:</b> {ammonia} <br> <b>النيتريت :</b> {Nitrite_values} <br> <b>Fe:</b> {Fe} <br> <b>التوصيل الكهربائي:</b> {Electric} <br> <b>الاملاح الكليه الذائبة:</b> {Total_dissolved_Salts}',
     };
     const stations = new FeatureLayer_1.default({
         title: 'Stations',
         url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/stations/FeatureServer/0',
         outFields: [
-            'Station_Name',
             'salinity',
             'hydrogen_ion_concentration',
             'dissolved_oxygen',
