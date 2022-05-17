@@ -132,7 +132,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     });
     const popupStations = {
         title: 'المحطة',
-        content: '<b>الملوحة:</b> {salinity} <br> <b>الأس الهيدروجيني:</b> {hydrogen_ion_concentration} <br> <b>الأوكسيجين الذائب:</b> {dissolved_oxygen} <br> <b>الأمونية:</b> {ammonia} <br> <b>النيتريت :</b> {Nitrite_values} <br> <b>Fe:</b> {Fe} <br> <b>التوصيل الكهربائي:</b> {Electric} <br> <b>الاملاح الكليه الذائبة:</b> {Total_dissolved_Salts}',
+        content: '<b>الملوحة:</b> {salinity} <br> <b>الأس الهيدروجيني:</b> {hydrogen_ion_concentration} <br> <b>الأوكسيجين الذائب:</b> {dissolved_oxygen} <br> <b>الأمونية:</b> {ammonia} <br> <b>النيتريت :</b> {Nitrite_values} <br> <b>الحديد الذائب:</b> {Fe} <br> <b>التوصيل الكهربائي:</b> {Electric} <br> <b>الاملاح الكليه الذائبة:</b> {Total_dissolved_Salts}',
     };
     const stations = new FeatureLayer_1.default({
         title: 'Stations',
