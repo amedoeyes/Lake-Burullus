@@ -7,6 +7,11 @@ body,
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+	user-select: none;
+}
+
+body * {
+	transition: 125ms ease-in-out;
 }
 
 #loading {
@@ -21,7 +26,6 @@ body,
 	font-size: 25px;
 	position: fixed;
 	z-index: 2;
-	transition: 125ms ease-in-out;
 }
 
 #loading > div {
@@ -54,99 +58,107 @@ body,
 	width: 100%;
 	max-height: 300px;
 	display: grid;
+	grid-gap: 20px;
 	grid-template-columns: repeat(3, 1fr);
 	background-color: #242424;
 	overflow-y: scroll;
+	padding: 12px 15px;
+	border-radius: 10px;
+}
+
+#mapsMenu > b {
+	grid-column-start: 1;
+	grid-column-end: 4;
+	text-align: end;
+	font-size: 15px;
+	padding: 5px;
+	margin: 0;
 }
 
 #mapsMenu > div {
-	display: grid;
 	text-align: center;
 	justify-content: center;
 	font-size: 12px;
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 10px;
 }
 
-#mapsMenu > div:nth-child(13) {
-	grid-column-start: 3;
-	grid-column-end: 4;
+#mapsMenu > div:not(:last-child):hover {
+	background-color: #ffffff1c;
+}
+
+#mapsMenu > div:hover div {
+	opacity: 0.5;
 }
 
 #mapsMenu > div:last-child {
 	display: flex;
-	text-align: center;
 	justify-self: end;
 }
 
 #mapsMenu > div > div {
 	width: 100px;
 	height: 70px;
-	margin: 15px;
-	cursor: pointer;
-	background-color: #333;
+	margin-bottom: 5px;
 	text-align: center;
-	transition: background-color 125ms ease-in-out;
-	border-radius: 5%;
+	border-radius: 10px;
 	background-position: center;
 	background-size: cover;
 }
 
-#mapsMenu > div > div:hover {
-	background-color: #ffffff1c;
+#mapsMenu > div > b {
 }
 
-#suitable {
+#suitable > div {
 	background-image: url('thumbs/suitable.png');
 }
-
-#ammonia {
+#ammonia > div {
 	background-image: url('thumbs/ammonia.png');
 }
-#electric {
+#electric > div {
 	background-image: url('thumbs/electric.png');
 }
-#electricPOI {
+#electricPOI > div {
 	background-image: url('thumbs/electricPOI.png');
 }
-#suitableEli {
-	background-image: url('thumbs/suitableEli.png');
-}
-#iron {
+#iron > div {
 	background-image: url('thumbs/iron.png');
 }
-#nitrite {
+#nitrite > div {
 	background-image: url('thumbs/nitrite.png');
 }
-#nitritePOI {
+#nitritePOI > div {
 	background-image: url('thumbs/nitritePOI.png');
 }
-#oxygen {
+#oxygen > div {
 	background-image: url('thumbs/oxygen.png');
 }
-#ph {
+#ph > div {
 	background-image: url('thumbs/ph.png');
 }
-#salinity {
+#salinity > div {
 	background-image: url('thumbs/salinity.png');
 }
-#salt {
+#salt > div {
 	background-image: url('thumbs/salt.png');
 }
-#temp {
+#temp > div {
 	background-image: url('thumbs/temp.png');
 }
 
 #checkContainer {
 	grid-column-start: 1;
 	grid-column-end: 4;
-	margin-top: 25px;
-	margin-bottom: 15px;
-	margin-left: 15px;
-	margin-right: 15px;
+	margin: 10px;
 	background-color: #0000;
-	text-align: left;
-	display: flex;
 	align-items: center;
 	cursor: pointer;
+}
+
+#checkContainer > b {
+	font-size: 15px;
+	margin: 0;
 }
 
 #switch {
@@ -214,33 +226,38 @@ input:checked + #slider:before {
 	border-bottom: 0px;
 }
 
-.esri-widget * {
-	border-radius: 10px;
-}
 .esri-widget .esri-legend__service {
 	border-bottom: 0px;
 }
 
-.esri-widget {
-	border-radius: 100%;
+.esri-ui-corner .esri-component {
+	border-radius: 50%;
 }
 
-.esri-widget .esri-widget--button {
-	border-radius: 100%;
+.esri-widget--button {
+	border-radius: 50%;
 }
-.esri-ui-manual-container > .esri-component {
-	border-radius: 0;
-}
-.esri-popup__main-container {
+
+.esri-view-height-small .esri-ui-corner .esri-component .esri-expand__content {
 	border-radius: 10px;
 }
 
 .esri-popup__main-container {
-	text-align: end
-} 
+	border-radius: 10px;
+}
+
+.esri-popup--is-docked-bottom-left .esri-popup__main-container {
+	text-align: end;
+	width: 300px;
+	transition: ease;
+}
 
 .esri-popup__header-buttons {
 	position: absolute;
+}
+
+.esri-legend__service-label {
+	text-align: end;
 }
 
 @media only screen and (max-width: 512px) {
@@ -267,7 +284,7 @@ input:checked + #slider:before {
 }
 
 ::-webkit-scrollbar {
-	width: 10px;
+	width: 7.5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -278,8 +295,13 @@ input:checked + #slider:before {
 
 ::-webkit-scrollbar-thumb {
 	background: #333;
+	border-radius: 15px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
+}
+
+::-webkit-scrollbar-thumb:hover ::-webkit-scrollbar {
+	width: 10px;
 }

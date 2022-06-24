@@ -19,7 +19,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     //viewport
     const viewWidth = window.innerWidth;
     const viewHeight = window.innerHeight;
-    //basemap and map config
+    //map config
     const map = new Map_1.default({
         basemap: 'dark-gray',
     });
@@ -76,6 +76,8 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             }
         }
     }, 1000);
+    //@ts-ignore
+    view.popup.actions = [];
     //layers
     // unique values funcion
     function uniqueValues(value, color, label) {
@@ -102,7 +104,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         })
     });
     const centers = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/burullus_centers/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/burullus_centers/FeatureServer/0',
         renderer: centersRenderer
     });
     map.add(centers, 0);
@@ -117,7 +119,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         label: 'بحيرة البرلس'
     });
     const lake = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/el_brolod/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/burullus/FeatureServer/0',
         renderer: lakeRenderer
     });
     map.add(lake, 0);
@@ -131,13 +133,14 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         })
     });
     const popupStations = {
-        title: 'المحطة',
-        content: '<b>الملوحة:</b> {salinity} <br> <b>الأس الهيدروجيني:</b> {hydrogen_ion_concentration} <br> <b>الأوكسيجين الذائب:</b> {dissolved_oxygen} <br> <b>الأمونية:</b> {ammonia} <br> <b>النيتريت :</b> {Nitrite_values} <br> <b>الحديد الذائب:</b> {Fe} <br> <b>التوصيل الكهربائي:</b> {Electric} <br> <b>الاملاح الكليه الذائبة:</b> {Total_dissolved_Salts}',
+        title: '{Station_Name} معلومات المحطة',
+        content: '<b>الملوحة:</b> {salinity} <br> <b>الأس الهيدوجيني:</b> {hydrogen_ion_concentration} <br> <b>الأوكسيجين الذائب:</b> {dissolved_oxygen} <br> <b>الأمونية:</b> {ammonia} <br> <b>النيتريت:</b> {Nitrite_values} <br> <b>الحديد:</b> {Fe} <br> <b>التوصيل الكهربائي:</b> {Electric} <br> <b>الاملاح الكليه الذائبة:</b> {Total_dissolved_Salts}',
     };
     const stations = new FeatureLayer_1.default({
         title: 'Stations',
-        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/stations/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/burullus_station_featurestoj1/FeatureServer/0',
         outFields: [
+            'Station_Name',
             'salinity',
             'hydrogen_ion_concentration',
             'dissolved_oxygen',
@@ -163,7 +166,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         label: 'طبقة توضح الاماكن المناسبة للاستزراع السمكي فى بحيرة البرلس وذلك بأخذ كل العوامل'
     });
     const suitable = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_places_for_fish_farming/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/suitable_places_for_fish_farming/FeatureServer/0',
         renderer: suitableRenderer,
         visible: true
     });
@@ -201,7 +204,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
     });
     const ammonia = new FeatureLayer_1.default({
         title: 'Ammonia',
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ammonia_fi_dissolve1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_ammonia_fi_dissolve1/FeatureServer/0',
         renderer: ammoniaRenderer,
         visible: true
     });
@@ -238,7 +241,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const electric = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_electric_fi_dissolve1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_electric_fi_dissolve/FeatureServer/0',
         renderer: electricDisRenderer,
         visible: true
     });
@@ -255,27 +258,11 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const electricPOI = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/electric_pol_fi/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/electric_pol_fi/FeatureServer/0',
         renderer: electricPOIRenderer,
         visible: true
     });
     map.add(electricPOI, 1);
-    //suitable places for electric
-    const suitableEliRenderer = new SimpleRenderer_1.default({
-        symbol: new SimpleFillSymbol_1.default({
-            color: '#8b87e4',
-            outline: {
-                width: 0
-            }
-        }),
-        label: 'طبقة توضح المناطق المناسبة للتوصيل الكهربائي'
-    });
-    const suitableEli = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/suitable_nitrite_locations/FeatureServer/0',
-        renderer: suitableEliRenderer,
-        visible: true
-    });
-    map.add(suitableEli, 1);
     //iron dissolve
     const ironRenderer = new SimpleRenderer_1.default({
         symbol: new SimpleFillSymbol_1.default({
@@ -308,7 +295,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const iron = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_iron_fi_dissolve1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_iron_fi_dissolve/FeatureServer/0',
         renderer: ironRenderer,
         visible: true
     });
@@ -345,7 +332,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const nitrite = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_nitrite_fi_dissolve1/FeatureServer/0',
         renderer: nitriteRenderer,
         visible: true
     });
@@ -362,7 +349,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const nitritePOI = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/nitrite_pol_fi/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/nitrite_pol_fi/FeatureServer/0',
         renderer: nitritePOIRenderer,
         visible: true
     });
@@ -399,7 +386,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const oxygen = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_dissolved_oxygen_fi_1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_dissolved_oxygen/FeatureServer/0',
         renderer: oxygenRenderer,
         visible: true
     });
@@ -436,7 +423,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const ph = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_ph_fi_dissolve1/FeatureServer/0',
         renderer: phRenderer,
         visible: true
     });
@@ -473,7 +460,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const salinity = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_salinity_fi_dissolve1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_salinity_fi_dissolve1/FeatureServer/0',
         renderer: salinityRenderer,
         visible: true
     });
@@ -510,7 +497,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const salt = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_total_dissolved_salt1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_total_dissolved_salt1/FeatureServer/0',
         renderer: saltRenderer,
         visible: true
     });
@@ -547,7 +534,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         ]
     });
     const temp = new FeatureLayer_1.default({
-        url: 'https://services3.arcgis.com/cc6ApLzpdJeUYlkB/arcgis/rest/services/extract_temperaature_dissolv1/FeatureServer/0',
+        url: 'https://services5.arcgis.com/5YEjLFPHgN3HHtrE/arcgis/rest/services/extract_temperaature_dissolv1/FeatureServer/0',
         renderer: tempRenderer,
         visible: true
     });
@@ -588,7 +575,6 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             layerInfo(ammonia, 'كمية الأمونية الذائبة'),
             layerInfo(electric, 'نسبة التوصيل الكهربائي'),
             layerInfo(electricPOI, 'المناطق الملائمة والغير ملائمة للتوصيل الكهربائي'),
-            layerInfo(suitableEli, 'أفضل اماكن للتوصيل الكهربائي'),
             layerInfo(iron, 'كمية الحديد الذائب'),
             layerInfo(nitrite, 'كمية النيتريت الذائب'),
             layerInfo(nitritePOI, 'المناطق الملائمة والغير ملائمة للنتريت'),
@@ -629,7 +615,6 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             ammonia.visible = false,
             electric.visible = false,
             electricPOI.visible = false,
-            suitableEli.visible = false,
             iron.visible = false,
             lake.visible = false,
             nitrite.visible = false,
@@ -640,30 +625,54 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             salt.visible = false,
             temp.visible = false;
     }
-    view.when(() => {
-        setTimeout(() => {
-            disableLayers();
-            lake.visible = true;
-            stations.visible = false;
+    function enableLayers() {
+        return suitable.visible = true,
+            ammonia.visible = true,
+            electric.visible = true,
+            electricPOI.visible = true,
+            iron.visible = true,
+            lake.visible = true,
+            nitrite.visible = true,
+            nitritePOI.visible = true,
+            oxygen.visible = true,
+            ph.visible = true,
+            salinity.visible = true,
+            salt.visible = true,
+            temp.visible = true;
+    }
+    //loading
+    // window.document.body.onload = () => {
+    //     disableLayers()
+    //     lake.visible = true
+    //     stations.visible = false
+    //     console.log('meow');
+    //     setTimeout(() => {
+    //         document.getElementById('loading').style.opacity = '0'
+    //         setTimeout(() => {
+    //             document.getElementById('loading').remove()
+    //         }, 125);
+    //     }, 125);
+    // }
+    window.document.body.onload = () => {
+        view.when(() => {
             setTimeout(() => {
-                document.getElementById('loading').style.opacity = '0';
+                disableLayers();
+                lake.visible = true;
+                stations.visible = false;
+                console.log('meow');
                 setTimeout(() => {
-                    document.getElementById('loading').remove();
-                }, 150);
-            }, 500);
-        }, 2000);
-    });
+                    document.getElementById('loading').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('loading').remove();
+                    }, 125);
+                }, 125);
+            }, 2000);
+        });
+    };
     document.getElementById('suitable').onclick = function () {
         if (!suitable.visible) {
             disableLayers();
             suitable.visible = true;
-            lake.visible = true;
-        }
-    };
-    document.getElementById('suitableEli').onclick = function () {
-        if (!suitableEli.visible) {
-            disableLayers();
-            suitableEli.visible = true;
             lake.visible = true;
         }
     };
