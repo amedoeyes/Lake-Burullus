@@ -36,7 +36,7 @@ const view = new MapView({
         dockEnabled: true,
         dockOptions: {
             buttonEnabled: false,
-            position: 'bottom-left',
+            position: 'top-right',
             breakpoint: false,
         },
     },
@@ -80,7 +80,7 @@ setInterval(() => {
 view.popup.actions = [];
 
 //layers
-// unique values funcion
+//unique values funcion
 function uniqueValues(value: string, color: string, label?: string) {
     return {
         'value': value,
@@ -142,8 +142,86 @@ const stationsRenderer = new SimpleRenderer({
 
 const popupStations = {
     title: '{Station_Name} معلومات المحطة',
-    content:
-        '<b>الملوحة:</b> {salinity} <br> <b>الأس الهيدوجيني:</b> {hydrogen_ion_concentration} <br> <b>الأوكسيجين الذائب:</b> {dissolved_oxygen} <br> <b>الأمونية:</b> {ammonia} <br> <b>النيتريت:</b> {Nitrite_values} <br> <b>الحديد:</b> {Fe} <br> <b>التوصيل الكهربائي:</b> {Electric} <br> <b>الاملاح الكليه الذائبة:</b> {Total_dissolved_Salts}',
+    content: [
+        {
+            type: "media",
+            mediaInfos: [
+                {
+                    type: "pie-chart",
+                    caption: "",
+                    value: {
+                        fields: ["ammonia", 'Electric', 'Fe', 'Nitrite_values', 'dissolved_oxygen', 'hydrogen_ion_concentration', 'salinity', 'Total_dissolved_Salts'],
+                    }
+                }
+            ]
+        },
+        {
+            type: "fields",
+            fieldInfos: [{
+                label: "كمية الأمونية الذائبة",
+                fieldName: "ammonia",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "نسبة التوصيل الكهربائي",
+                fieldName: "Electric",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "كمية الحديد الذائب",
+                fieldName: "Fe",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "كمية النيتريت الذائب",
+                fieldName: "Nitrite_values",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "كمية الأوكسيجين الذائب",
+                fieldName: "dissolved_oxygen",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "كمية الأس الهيدوجيني",
+                fieldName: "hydrogen_ion_concentration",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "نسبة الملوحة",
+                fieldName: "salinity",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            },
+            {
+                label: "كمية الاملاح الكليه الذائبة",
+                fieldName: "Total_dissolved_Salts",
+                format: {
+                    digitSeparator: true,
+                    places: 1
+                }
+            }]
+        }]
 };
 
 const stations = new FeatureLayer({

@@ -55,8 +55,20 @@ body * {
 }
 
 #mapsMenu {
+	height: 300px;
+	display: flex;
+	flex-direction: column;
+}
+
+#title {
 	width: 100%;
-	max-height: 300px;
+	text-align: end;
+	background-color: #242424;
+}
+
+#layers {
+	width: 100%;
+	height: 100%;
 	display: grid;
 	grid-gap: 20px;
 	grid-template-columns: repeat(3, 1fr);
@@ -66,16 +78,7 @@ body * {
 	border-radius: 10px;
 }
 
-#mapsMenu > b {
-	grid-column-start: 1;
-	grid-column-end: 4;
-	text-align: end;
-	font-size: 15px;
-	padding: 5px;
-	margin: 0;
-}
-
-#mapsMenu > div {
+#layers > div {
 	text-align: center;
 	justify-content: center;
 	font-size: 12px;
@@ -84,20 +87,20 @@ body * {
 	border-radius: 10px;
 }
 
-#mapsMenu > div:not(:last-child):hover {
+#layers > div:not(:last-child):hover {
 	background-color: #ffffff1c;
 }
 
-#mapsMenu > div:hover div {
+#layers > div:hover div {
 	opacity: 0.5;
 }
 
-#mapsMenu > div:last-child {
+#layers > div:last-child {
 	display: flex;
 	justify-self: end;
 }
 
-#mapsMenu > div > div {
+#layers > div > div {
 	width: 100px;
 	height: 70px;
 	margin-bottom: 5px;
@@ -105,9 +108,6 @@ body * {
 	border-radius: 10px;
 	background-position: center;
 	background-size: cover;
-}
-
-#mapsMenu > div > b {
 }
 
 #suitable > div {
@@ -245,26 +245,51 @@ input:checked + #slider:before {
 .esri-popup__main-container {
 	border-radius: 10px;
 }
+.esri-widget *,
+.esri-widget *:before,
+.esri-widget *:after {
+	border-radius: 10px;
+}
 
-.esri-popup--is-docked-bottom-left .esri-popup__main-container {
-	text-align: end;
-	width: 300px;
+.esri-popup--is-docked-top-right .esri-popup__main-container {
+	max-height: 300px;
+	max-width: 300px;
 	transition: ease;
+}
+
+.esri-widget__table tr th {
+	text-align: right;
+}
+
+.esri-popup--is-docked .esri-popup__header {
+	text-align: end;
+}
+
+.esri-feature__media-chart > svg > rect {
+	display: none;
 }
 
 .esri-popup__header-buttons {
 	position: absolute;
 }
 
+.esri-widget__table {
+	direction: rtl;
+}
+
 .esri-legend__service-label {
 	text-align: end;
 }
 
+.esri-ui-corner .esri-expand .esri-widget--panel {
+	max-height: 300px;
+}
+
 @media only screen and (max-width: 512px) {
-	#mapsMenu {
+	#layers {
 		max-height: 100%;
 	}
-	#mapsMenu > div > div {
+	#layers > div > div {
 		width: 80px;
 	}
 	.esri-ui-corner .esri-expand .esri-widget--panel,
