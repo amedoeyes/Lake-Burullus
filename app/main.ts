@@ -626,7 +626,7 @@ const tempRenderer = new SimpleRenderer({
             type: 'color',
             field: 'gridcode',
             legendOptions: {
-                title: 'C'
+                title: '°C'
             },
             stops: [
                 {
@@ -760,28 +760,13 @@ function enableLayers() {
         temp.visible = true
 }
 
-
 //loading
-// window.document.body.onload = () => {
-//     disableLayers()
-//     lake.visible = true
-//     stations.visible = false
-//     console.log('meow');
-//     setTimeout(() => {
-//         document.getElementById('loading').style.opacity = '0'
-//         setTimeout(() => {
-//             document.getElementById('loading').remove()
-//         }, 125);
-//     }, 125);
-// }
-
 window.document.body.onload = () => {
     view.when(() => {
         setTimeout(() => {
             disableLayers()
             lake.visible = true
             stations.visible = false
-            console.log('meow');
             setTimeout(() => {
                 document.getElementById('loading').style.opacity = '0'
                 setTimeout(() => {
@@ -791,8 +776,6 @@ window.document.body.onload = () => {
         }, 2000);
     })
 }
-
-
 
 document.getElementById('suitable').onclick = function () {
     if (!suitable.visible) {

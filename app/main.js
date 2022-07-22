@@ -596,7 +596,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                 type: 'color',
                 field: 'gridcode',
                 legendOptions: {
-                    title: 'C'
+                    title: '°C'
                 },
                 stops: [
                     {
@@ -721,25 +721,12 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
             temp.visible = true;
     }
     //loading
-    // window.document.body.onload = () => {
-    //     disableLayers()
-    //     lake.visible = true
-    //     stations.visible = false
-    //     console.log('meow');
-    //     setTimeout(() => {
-    //         document.getElementById('loading').style.opacity = '0'
-    //         setTimeout(() => {
-    //             document.getElementById('loading').remove()
-    //         }, 125);
-    //     }, 125);
-    // }
     window.document.body.onload = () => {
         view.when(() => {
             setTimeout(() => {
                 disableLayers();
                 lake.visible = true;
                 stations.visible = false;
-                console.log('meow');
                 setTimeout(() => {
                     document.getElementById('loading').style.opacity = '0';
                     setTimeout(() => {

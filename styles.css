@@ -75,7 +75,7 @@ body * {
 	background-color: #242424;
 	overflow-y: scroll;
 	padding: 12px 15px;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 #layers > div {
@@ -84,7 +84,7 @@ body * {
 	font-size: 12px;
 	padding: 5px;
 	cursor: pointer;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 #layers > div:not(:last-child):hover {
@@ -105,7 +105,7 @@ body * {
 	height: 70px;
 	margin-bottom: 5px;
 	text-align: center;
-	border-radius: 10px;
+	border-radius: 15px;
 	background-position: center;
 	background-size: cover;
 }
@@ -222,12 +222,23 @@ input:checked + #slider:before {
 .esri-ui-corner .esri-component.esri-widget--panel {
 	width: 200px;
 	max-height: 400px;
-	border-radius: 10px;
+	border-radius: 15px;
 	border-bottom: 0px;
+}
+
+.esri-legend__layer {
+	direction: rtl;
 }
 
 .esri-widget .esri-legend__service {
 	border-bottom: 0px;
+}
+
+.esri-legend__ramp-label::before {
+	top: 0;
+	right: -5%;
+	border-style: none;
+	content: '<';
 }
 
 .esri-ui-corner .esri-component {
@@ -239,16 +250,16 @@ input:checked + #slider:before {
 }
 
 .esri-view-height-small .esri-ui-corner .esri-component .esri-expand__content {
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .esri-popup__main-container {
-	border-radius: 10px;
+	border-radius: 15px;
 }
 .esri-widget *,
 .esri-widget *:before,
 .esri-widget *:after {
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .esri-popup--is-docked-top-right .esri-popup__main-container {
