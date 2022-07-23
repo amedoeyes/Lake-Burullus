@@ -10,10 +10,6 @@ body,
 	user-select: none;
 }
 
-body * {
-	transition: 125ms ease-in-out;
-}
-
 #loading {
 	width: 100%;
 	height: 100%;
@@ -26,6 +22,7 @@ body * {
 	font-size: 25px;
 	position: fixed;
 	z-index: 2;
+	transition: 125ms ease-in-out;
 }
 
 #loading > div {
@@ -43,6 +40,7 @@ body * {
 	animation-name: loading;
 	animation-iteration-count: infinite;
 	animation-duration: 0.75s;
+	transition: 125ms ease-in-out;
 }
 
 @keyframes loading {
@@ -327,8 +325,8 @@ input:checked + #slider:before {
 }
 
 @media only screen and (max-width: 512px) {
-	#layers {
-		max-height: 100%;
+	#mapsMenu {
+		height: 100%;
 	}
 
 	#layers > div > div {
@@ -342,12 +340,27 @@ input:checked + #slider:before {
 		max-height: 100%;
 	}
 
+	.esri-legend__ramp-label::before {
+		right: -3%;
+	}
+
+	.esri-popup--is-docked-bottom-right .esri-popup__main-container {
+		width: 100%;
+		height: 300px;
+	}
+
 	.esri-expand__container--expanded {
 		inset: 0;
 	}
 
-	.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {
-		border-radius: 0;
+	.esri-view-width-xsmall .esri-expand--auto .esri-expand__mask--expanded {
+		display: none;
+	}
+
+	.esri-widget--button {
+		width: 50px;
+		height: 50px;
+		border-radius: 25px;
 	}
 }
 

@@ -34,6 +34,7 @@ const view = new MapView({
 	},
 	popup: {
 		dockEnabled: true,
+		collapseEnabled: false,
 		dockOptions: {
 			buttonEnabled: false,
 			position: "top-right",
@@ -47,7 +48,7 @@ setInterval(() => {
 	const maxZoom = 1000000;
 	const minZoom = 50000;
 	const maxLong = 31.276932195608637;
-	const minLong = 30.38183587513739;
+	const minLong = 30.18183587513739;
 	const maxLat = 31.708265368498985;
 	const minLat = 31.32458651642475;
 
@@ -638,7 +639,7 @@ const tempRenderer = new SimpleRenderer({
 			type: "color",
 			field: "gridcode",
 			legendOptions: {
-				title: "°C",
+				title: "C°",
 			},
 			stops: [
 				{
@@ -867,6 +868,105 @@ if (viewWidth < viewHeight && viewWidth < 512) {
 		longitude: 30.796336053905733,
 		latitude: 31.460756827405653,
 	});
+	view.popup.dockOptions = {
+		position: "bottom-right",
+	};
 	legendExpand.expanded = false;
 	mapsMenuExpand.expanded = false;
+
+	document.getElementById("suitable").onclick = function () {
+		if (!suitable.visible) {
+			disableLayers();
+			suitable.visible = true;
+			lake.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("ammonia").onclick = function () {
+		if (!ammonia.visible) {
+			disableLayers();
+			ammonia.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("electric").onclick = function () {
+		if (!electric.visible) {
+			disableLayers();
+			electric.visible = true;
+		}
+	};
+
+	document.getElementById("electricPOI").onclick = function () {
+		if (!electricPOI.visible) {
+			disableLayers();
+			electricPOI.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("iron").onclick = function () {
+		if (!iron.visible) {
+			disableLayers();
+			iron.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("nitrite").onclick = function () {
+		if (!nitrite.visible) {
+			disableLayers();
+			nitrite.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("nitritePOI").onclick = function () {
+		if (!nitritePOI.visible) {
+			disableLayers();
+			nitritePOI.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("oxygen").onclick = function () {
+		if (!oxygen.visible) {
+			disableLayers();
+			oxygen.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("ph").onclick = function () {
+		if (!ph.visible) {
+			disableLayers();
+			ph.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("salinity").onclick = function () {
+		if (!salinity.visible) {
+			disableLayers();
+			salinity.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("salt").onclick = function () {
+		if (!salt.visible) {
+			disableLayers();
+			salt.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
+
+	document.getElementById("temp").onclick = function () {
+		if (!temp.visible) {
+			disableLayers();
+			temp.visible = true;
+		}
+		mapsMenuExpand.expanded = false;
+	};
 }
