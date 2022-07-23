@@ -52,14 +52,6 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
         const minLong = 30.18183587513739;
         const maxLat = 31.708265368498985;
         const minLat = 31.32458651642475;
-        if (view.scale > maxZoom || view.scale < minZoom) {
-            if (viewWidth > viewHeight && viewWidth > 512) {
-                view.goTo({});
-            }
-            else {
-                view.goTo({});
-            }
-        }
         if (view.scale > maxZoom ||
             view.scale < minZoom ||
             view.center.longitude < minLong ||

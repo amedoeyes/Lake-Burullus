@@ -18,7 +18,7 @@ const viewHeight = window.innerHeight;
 
 //map config
 const map = new Map({
-	basemap: "dark-gray-vector",
+	basemap: "dark-gray",
 });
 
 const view = new MapView({
@@ -52,13 +52,6 @@ setInterval(() => {
 	const maxLat = 31.708265368498985;
 	const minLat = 31.32458651642475;
 
-	if (view.scale > maxZoom || view.scale < minZoom) {
-		if (viewWidth > viewHeight && viewWidth > 512) {
-			view.goTo({});
-		} else {
-			view.goTo({});
-		}
-	}
 	if (
 		view.scale > maxZoom ||
 		view.scale < minZoom ||
