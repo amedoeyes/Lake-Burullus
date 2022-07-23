@@ -288,15 +288,18 @@ input:checked + #slider:before {
 .esri-popup--is-docked-top-right .esri-popup__main-container {
 	max-height: 300px;
 	max-width: 320px;
-	transition: ease;
 }
 
 .esri-widget__table tr th {
 	text-align: right;
 }
 
-.esri-popup--is-docked .esri-popup__header {
+.esri-popup__header {
 	direction: rtl;
+}
+
+.esri-popup__header-container {
+	text-align: end;
 }
 
 .esri-popup__header-title {
