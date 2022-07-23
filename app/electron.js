@@ -9,7 +9,6 @@ app.whenReady().then(() => {
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	});
-
 	win.maximize();
 	win.loadFile('index.html');
 });
