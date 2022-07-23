@@ -18,7 +18,7 @@ const viewHeight = window.innerHeight;
 
 //map config
 const map = new Map({
-	basemap: "dark-gray",
+	basemap: "dark-gray-vector",
 });
 
 const view = new MapView({
