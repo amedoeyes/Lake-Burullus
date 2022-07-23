@@ -49,6 +49,7 @@ body * {
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
@@ -58,12 +59,13 @@ body * {
 	height: 300px;
 	display: flex;
 	flex-direction: column;
+	background-color: #242424;
 }
 
 #title {
 	width: 100%;
 	text-align: end;
-	background-color: #242424;
+	margin-left: -7px;
 }
 
 #layers {
@@ -72,7 +74,6 @@ body * {
 	display: grid;
 	grid-gap: 20px;
 	grid-template-columns: repeat(3, 1fr);
-	background-color: #242424;
 	overflow-y: scroll;
 	padding: 12px 15px;
 	border-radius: 15px;
@@ -111,40 +112,51 @@ body * {
 }
 
 #suitable > div {
-	background-image: url('thumbs/suitable.png');
+	background-image: url("thumbs/suitable.png");
 }
+
 #ammonia > div {
-	background-image: url('thumbs/ammonia.png');
+	background-image: url("thumbs/ammonia.png");
 }
+
 #electric > div {
-	background-image: url('thumbs/electric.png');
+	background-image: url("thumbs/electric.png");
 }
+
 #electricPOI > div {
-	background-image: url('thumbs/electricPOI.png');
+	background-image: url("thumbs/electricPOI.png");
 }
+
 #iron > div {
-	background-image: url('thumbs/iron.png');
+	background-image: url("thumbs/iron.png");
 }
+
 #nitrite > div {
-	background-image: url('thumbs/nitrite.png');
+	background-image: url("thumbs/nitrite.png");
 }
+
 #nitritePOI > div {
-	background-image: url('thumbs/nitritePOI.png');
+	background-image: url("thumbs/nitritePOI.png");
 }
+
 #oxygen > div {
-	background-image: url('thumbs/oxygen.png');
+	background-image: url("thumbs/oxygen.png");
 }
+
 #ph > div {
-	background-image: url('thumbs/ph.png');
+	background-image: url("thumbs/ph.png");
 }
+
 #salinity > div {
-	background-image: url('thumbs/salinity.png');
+	background-image: url("thumbs/salinity.png");
 }
+
 #salt > div {
-	background-image: url('thumbs/salt.png');
+	background-image: url("thumbs/salt.png");
 }
+
 #temp > div {
-	background-image: url('thumbs/temp.png');
+	background-image: url("thumbs/temp.png");
 }
 
 #checkContainer {
@@ -157,7 +169,7 @@ body * {
 }
 
 #checkContainer > b {
-	font-size: 15px;
+	font-size: 13px;
 	margin: 0;
 }
 
@@ -188,7 +200,7 @@ body * {
 
 #slider:before {
 	position: absolute;
-	content: '';
+	content: "";
 	height: 22px;
 	width: 22px;
 	left: 4px;
@@ -238,7 +250,7 @@ input:checked + #slider:before {
 	top: 0;
 	right: -5%;
 	border-style: none;
-	content: '<';
+	content: "<";
 }
 
 .esri-ui-corner .esri-component {
@@ -256,15 +268,28 @@ input:checked + #slider:before {
 .esri-popup__main-container {
 	border-radius: 15px;
 }
+
 .esri-widget *,
 .esri-widget *:before,
 .esri-widget *:after {
 	border-radius: 15px;
 }
 
+.esri-popup__footer {
+	display: none;
+}
+
+.esri-feature-media__container {
+	margin-top: 0;
+}
+
+.esri-feature-media__item {
+	margin-top: 0;
+}
+
 .esri-popup--is-docked-top-right .esri-popup__main-container {
 	max-height: 300px;
-	max-width: 300px;
+	max-width: 320px;
 	transition: ease;
 }
 
@@ -273,15 +298,20 @@ input:checked + #slider:before {
 }
 
 .esri-popup--is-docked .esri-popup__header {
-	text-align: end;
+	direction: rtl;
+}
+
+.esri-popup__header-title {
+	direction: initial;
+	margin-right: 0;
+}
+
+.esri-popup__header-buttons {
+	margin: 0;
 }
 
 .esri-feature__media-chart > svg > rect {
 	display: none;
-}
-
-.esri-popup__header-buttons {
-	position: absolute;
 }
 
 .esri-widget__table {
@@ -300,21 +330,23 @@ input:checked + #slider:before {
 	#layers {
 		max-height: 100%;
 	}
+
 	#layers > div > div {
 		width: 80px;
 	}
+
 	.esri-ui-corner .esri-expand .esri-widget--panel,
 	.esri-ui-corner .esri-expand .esri-widget--panel-height-only,
 	.esri-ui-corner .esri-component.esri-widget--panel {
 		width: 100%;
 		max-height: 100%;
 	}
+
 	.esri-expand__container--expanded {
 		inset: 0;
 	}
-	.esri-view-width-xsmall
-		.esri-expand--auto
-		.esri-expand__container--expanded {
+
+	.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {
 		border-radius: 0;
 	}
 }
