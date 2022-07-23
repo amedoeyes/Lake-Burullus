@@ -129,7 +129,6 @@ const lake = new FeatureLayer({
 })
 map.add(lake, 0)
 
-
 //stations
 const stationsRenderer = new SimpleRenderer({
     label: 'المحطات',
